@@ -16,10 +16,10 @@ export default function Home() {
       <AcaiBuilder />
       <Header />
       <Hero />
+      <InstagramFeed />
       <Menu />
       <About />
       <Location />
-      <InstagramFeed />
       <Footer />
       <FloatingButtons />
     </main>
