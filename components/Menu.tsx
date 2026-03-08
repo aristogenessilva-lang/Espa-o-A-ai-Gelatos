@@ -91,7 +91,7 @@ export function Menu() {
   };
 
   return (
-    <section id="catalogo" className="py-20 bg-[#faf8fb]">
+    <section id="catalogo" className="pt-12 pb-8 bg-[#faf8fb]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
         <motion.div 
@@ -99,7 +99,7 @@ export function Menu() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-8"
         >
           <h2 className="font-serif text-5xl font-bold text-[#6b1471] mb-4">
             Nosso Cardápio
@@ -113,7 +113,7 @@ export function Menu() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="max-w-2xl mx-auto mb-10 relative"
+          className="max-w-2xl mx-auto mb-8 relative"
         >
           <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
             <Search className="text-gray-400" size={20} />
@@ -133,7 +133,7 @@ export function Menu() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex flex-wrap justify-center gap-3 mb-16"
+          className="flex flex-wrap justify-center gap-3 mb-10"
         >
           {categories.map((category) => (
             <button

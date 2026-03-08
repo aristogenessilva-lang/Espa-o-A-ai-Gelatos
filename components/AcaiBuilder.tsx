@@ -63,6 +63,8 @@ export function AcaiBuilder() {
   
   const [customerName, setCustomerName] = useState('');
   const [deliveryMethod, setDeliveryMethod] = useState<'Delivery' | 'Retirada no local' | ''>('');
+  const [paymentMethod, setPaymentMethod] = useState<'Pix' | 'Cartão de Crédito' | 'Cartão de Débito' | 'Dinheiro' | ''>('');
+  const [deliveryAddress, setDeliveryAddress] = useState('');
 
   useEffect(() => {
     const handleOpen = () => {
@@ -149,8 +151,13 @@ export function AcaiBuilder() {
   };
 
   const sendOrder = () => {
-    if (!customerName.trim() || !deliveryMethod) {
-      alert('Por favor, preencha seu nome e a forma de entrega.');
+    if (!customerName.trim() || !deliveryMethod || !paymentMethod) {
+      alert('Por favor, preencha seu nome, forma de entrega e forma de pagamento.');
+      return;
+    }
+
+    if (deliveryMethod === 'Delivery' && !deliveryAddress.trim()) {
+      alert('Por favor, informe o local de entrega.');
       return;
     }
 
@@ -166,7 +173,11 @@ export function AcaiBuilder() {
       message += `Caldas: ${item.syrups.length > 0 ? item.syrups.join(', ') : 'Nenhuma'}\n\n`;
     });
 
-    message += `*Forma de entrega:* ${deliveryMethod}\n\n`;
+    message += `*Forma de entrega:* ${deliveryMethod}\n`;
+    if (deliveryMethod === 'Delivery') {
+      message += `*Local de entrega:* ${deliveryAddress}\n`;
+    }
+    message += `*Forma de pagamento:* ${paymentMethod}\n\n`;
     message += `*Preço base:*\n1kg = R$ 70,00\n\n`;
     message += `_Aguardando pesagem para valor final._`;
 
@@ -177,6 +188,8 @@ export function AcaiBuilder() {
     setCart([]);
     setCustomerName('');
     setDeliveryMethod('');
+    setPaymentMethod('');
+    setDeliveryAddress('');
     setIsOpen(false);
   };
 
@@ -451,6 +464,38 @@ export function AcaiBuilder() {
                   ))}
                 </div>
               </div>
+
+              {deliveryMethod === 'Delivery' && (
+                <div className="animate-in fade-in slide-in-from-top-2">
+                  <label className="block font-bold text-[#6b1471] mb-2">Local de Entrega</label>
+                  <textarea
+                    value={deliveryAddress}
+                    onChange={(e) => setDeliveryAddress(e.target.value)}
+                    placeholder="Rua, número, bairro, ponto de referência..."
+                    rows={3}
+                    className="w-full p-4 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#f26522] focus:border-transparent outline-none resize-none"
+                  />
+                </div>
+              )}
+
+              <div>
+                <label className="block font-bold text-[#6b1471] mb-3">Forma de Pagamento</label>
+                <div className="grid grid-cols-2 gap-3">
+                  {['Pix', 'Cartão de Crédito', 'Cartão de Débito', 'Dinheiro'].map(method => (
+                    <button
+                      key={method}
+                      onClick={() => setPaymentMethod(method as any)}
+                      className={`p-4 rounded-xl border-2 text-center font-bold transition-all active:scale-95 ${
+                        paymentMethod === method
+                          ? 'border-[#f26522] bg-[#fff0e6] text-[#f26522]' 
+                          : 'border-gray-200 bg-white hover:border-[#f26522]/50 text-gray-600'
+                      }`}
+                    >
+                      {method}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         )}
@@ -510,7 +555,7 @@ export function AcaiBuilder() {
               </button>
               <button
                 onClick={sendOrder}
-                disabled={!customerName.trim() || !deliveryMethod}
+                disabled={!customerName.trim() || !deliveryMethod || !paymentMethod || (deliveryMethod === 'Delivery' && !deliveryAddress.trim())}
                 className="flex-1 bg-[#00a859] disabled:bg-gray-300 disabled:cursor-not-allowed text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#008f4c] active:scale-95 transition-all"
               >
                 Enviar Pedido pelo WhatsApp

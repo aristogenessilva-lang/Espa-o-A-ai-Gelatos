@@ -41,9 +41,9 @@ const INSTAGRAM_POSTS = [
 
 export function InstagramFeed() {
   return (
-    <section className="py-16 bg-white overflow-hidden" id="instagram">
+    <section className="pt-12 pb-8 bg-white overflow-hidden" id="instagram">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10">
+        <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-2 mb-4">
             <div className="w-12 h-12 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 rounded-full flex items-center justify-center">
               <Instagram className="w-6 h-6 text-white" />
@@ -115,7 +115,7 @@ export function InstagramFeed() {
         </div>
       </div>
 
-      <div className="mt-10 text-center">
+      <div className="mt-8 text-center">
         <a
           href="https://www.instagram.com/espacoacaiegelatos/"
           target="_blank"
