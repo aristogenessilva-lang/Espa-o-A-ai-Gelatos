@@ -83,7 +83,7 @@ export function Menu() {
   const handleOrder = () => {
     if (!selectedItem) return;
     const obsText = observation.trim() ? `\n\n*Observações:* ${observation}` : '';
-    const text = `Olá! Gostaria de pedir:\n\n1x *${selectedItem.name}* (R$ ${selectedItem.price})${obsText}`;
+    const text = `Olá! Gostaria de pedir:\n\n1x *${selectedItem.name}*${obsText}`;
     const encodedText = encodeURIComponent(text);
     window.open(`https://wa.me/5598985080705?text=${encodedText}`, '_blank');
     setSelectedItem(null);
@@ -165,9 +165,6 @@ export function Menu() {
                 <h3 className="font-serif text-xl font-bold text-[#6b1471] leading-tight flex-1">
                   {item.name}
                 </h3>
-                <span className="bg-[#fff0e6] text-[#f26522] px-3 py-1 rounded-full text-sm font-bold whitespace-nowrap">
-                  R$ {item.price}
-                </span>
               </div>
               <p className="text-gray-600 text-sm mb-6 flex-1 leading-relaxed">
                 {item.description}
@@ -204,8 +201,7 @@ export function Menu() {
             </button>
             
             <h3 className="text-2xl font-bold text-[#6b1471] mb-2 pr-8">{selectedItem.name}</h3>
-            <p className="text-gray-600 mb-4">{selectedItem.description}</p>
-            <div className="text-xl font-bold text-[#f26522] mb-6">R$ {selectedItem.price}</div>
+            <p className="text-gray-600 mb-6">{selectedItem.description}</p>
 
             <div className="mb-6">
               <label className="block text-sm font-bold text-[#6b1471] mb-2">
