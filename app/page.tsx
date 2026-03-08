@@ -3,6 +3,7 @@ import { Hero } from '@/components/Hero';
 import { Menu } from '@/components/Menu';
 import { About } from '@/components/About';
 import { Location } from '@/components/Location';
+import { InstagramFeed } from '@/components/InstagramFeed';
 import { Footer } from '@/components/Footer';
 import { FloatingButtons } from '@/components/FloatingButtons';
 import { StoreStatusModal } from '@/components/StoreStatusModal';
@@ -18,6 +19,7 @@ export default function Home() {
       <Menu />
       <About />
       <Location />
+      <InstagramFeed />
       <Footer />
       <FloatingButtons />
     </main>
