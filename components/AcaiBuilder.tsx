@@ -468,14 +468,24 @@ export function AcaiBuilder() {
         <div className="max-w-3xl mx-auto flex gap-3">
           {view === 'builder' && (
             <>
-              {currentStep > 1 && (
+              {currentStep > 1 ? (
                 <button
                   onClick={() => setCurrentStep(currentStep - 1)}
                   className="px-6 py-4 rounded-xl border border-gray-300 font-bold text-gray-600 hover:bg-gray-50 active:scale-95 transition-all"
                 >
                   <ChevronLeft size={24} />
                 </button>
-              )}
+              ) : cart.length > 0 ? (
+                <button
+                  onClick={() => {
+                    setCurrentItem(null);
+                    setView('cart');
+                  }}
+                  className="px-6 py-4 rounded-xl border border-gray-300 font-bold text-gray-600 hover:bg-gray-50 active:scale-95 transition-all"
+                >
+                  Voltar
+                </button>
+              ) : null}
               <button
                 onClick={handleNext}
                 disabled={!canProceed()}
