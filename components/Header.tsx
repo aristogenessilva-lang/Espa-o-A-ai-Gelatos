@@ -60,9 +60,9 @@ export function Header() {
         isScrolled ? 'bg-[#faf8fb]/95 backdrop-blur-md shadow-md py-2 sm:py-3' : 'bg-[#faf8fb] py-3 sm:py-5'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 flex justify-between items-center gap-2">
         {/* Logo */}
-        <Link href="/" className="flex items-center hover:opacity-90 transition-opacity">
+        <Link href="/" className="flex items-center hover:opacity-90 transition-opacity min-w-0">
           <Logo />
         </Link>
 
@@ -94,13 +94,13 @@ export function Header() {
         </nav>
 
         {/* Mobile Menu Button */}
-        <div className="flex items-center gap-3 md:hidden">
-           <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-bold tracking-wider border ${isOpen ? 'bg-green-100 text-green-800 border-green-200' : 'bg-red-100 text-red-800 border-red-200'}`}>
-            <Clock size={12} />
+        <div className="flex items-center gap-1.5 sm:gap-3 md:hidden shrink-0">
+           <div className={`flex items-center gap-1 px-1.5 py-1 sm:px-2 rounded-full text-[9px] sm:text-[10px] font-bold tracking-wider border ${isOpen ? 'bg-green-100 text-green-800 border-green-200' : 'bg-red-100 text-red-800 border-red-200'}`}>
+            <Clock size={10} className="sm:w-3 sm:h-3" />
             {isOpen ? 'ABERTO' : 'FECHADO'}
           </div>
           <button
-            className="text-[#6b1471] p-1"
+            className="text-[#6b1471] p-0.5 sm:p-1"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
