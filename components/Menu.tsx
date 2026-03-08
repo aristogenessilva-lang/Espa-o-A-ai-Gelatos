@@ -18,16 +18,16 @@ const categories = [
 const menuItems = [
   {
     id: 1,
-    name: 'Açaí 300ml',
+    name: 'Açaí no Copo',
     price: '15,00',
-    description: 'Copo de 300ml de açaí puro. Escolha até 3 acompanhamentos gratuitos.',
+    description: 'Copo de açaí puro. Escolha até 3 acompanhamentos gratuitos.',
     category: 'AÇAÍ TRADICIONAL',
   },
   {
     id: 2,
-    name: 'Açaí 500ml',
+    name: 'Açaí na Marmita',
     price: '22,00',
-    description: 'Copo de 500ml de açaí puro. Escolha até 4 acompanhamentos gratuitos.',
+    description: 'Marmita de açaí puro. Escolha até 4 acompanhamentos gratuitos.',
     category: 'AÇAÍ TRADICIONAL',
   },
   {
@@ -62,7 +62,7 @@ const menuItems = [
     id: 8,
     name: 'Combo Casal',
     price: '35,00',
-    description: '2 copos de açaí 300ml + 2 águas minerais.',
+    description: '2 copos de açaí + 2 águas minerais.',
     category: 'COMBOS',
   },
 ];

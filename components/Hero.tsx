@@ -33,7 +33,7 @@ export function Hero() {
         >
           <Leaf size={14} className="text-[#00a859]" />
           <span className="text-[10px] md:text-xs font-bold tracking-widest text-[#faf8fb] uppercase">
-            Açaí Artesanal & Gelatos
+            Espaço Açaí & Gelatos
           </span>
         </motion.div>
 

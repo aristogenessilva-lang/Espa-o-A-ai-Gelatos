@@ -4,12 +4,10 @@ import { useState, useEffect } from 'react';
 import { X, ChevronRight, ChevronLeft, Plus, Trash2, Edit2, ShoppingBag, Check } from 'lucide-react';
 
 const SIZES = [
-  { id: 'm300', name: 'Marmita 300ml', type: 'Marmitas' },
-  { id: 'm500', name: 'Marmita 500ml', type: 'Marmitas' },
-  { id: 'm700', name: 'Marmita 700ml', type: 'Marmitas' },
-  { id: 'c300', name: 'Copo 300ml', type: 'Copos' },
-  { id: 'c400', name: 'Copo 400ml', type: 'Copos' },
-  { id: 'c500', name: 'Copo 500ml', type: 'Copos' },
+  { id: 'marmita', name: 'Marmita' },
+  { id: 'copo', name: 'Copo' },
+  { id: 'tigela', name: 'Tigela' },
+  { id: 'barca', name: 'Barca' },
 ];
 
 const ACAIS = [
@@ -47,7 +45,7 @@ type AcaiItem = {
 };
 
 const STEPS = [
-  { id: 1, title: 'Tamanho', required: true },
+  { id: 1, title: 'Formato', required: true },
   { id: 2, title: 'Açaí e Cremes', required: true },
   { id: 3, title: 'Gelatos', required: false },
   { id: 4, title: 'Frutas', required: false },
@@ -160,7 +158,7 @@ export function AcaiBuilder() {
 
     cart.forEach((item, index) => {
       message += `*Açaí ${index + 1}*\n`;
-      message += `Tamanho: ${item.size}\n`;
+      message += `Formato: ${item.size}\n`;
       message += `Açaí: ${item.acais.join(', ')}\n`;
       message += `Gelatos: ${item.gelatos.length > 0 ? item.gelatos.join(', ') : 'Nenhum'}\n`;
       message += `Frutas: ${item.fruits.length > 0 ? item.fruits.join(', ') : 'Nenhuma'}\n`;
@@ -219,30 +217,25 @@ export function AcaiBuilder() {
             {/* Step 1: Size */}
             {currentStep === 1 && (
               <div className="space-y-6 animate-in fade-in slide-in-from-right-4">
-                <p className="text-sm text-gray-500 mb-2 italic">"Tudo começa com o tamanho da sua vontade. Escolha o recipiente ideal!"</p>
-                {['Marmitas', 'Copos'].map(type => (
-                  <div key={type}>
-                    <h3 className="font-bold text-gray-700 mb-3">{type}</h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                      {SIZES.filter(s => s.type === type).map(size => (
-                        <button
-                          key={size.id}
-                          onClick={() => setCurrentItem({ ...currentItem, size: size.name })}
-                          className={`p-4 rounded-xl border-2 text-left transition-all active:scale-95 ${
-                            currentItem.size === size.name 
-                              ? 'border-[#f26522] bg-[#fff0e6] text-[#f26522]' 
-                              : 'border-gray-200 bg-white hover:border-[#f26522]/50'
-                          }`}
-                        >
-                          <div className="flex justify-between items-center">
-                            <span className="font-bold">{size.name}</span>
-                            {currentItem.size === size.name && <Check size={20} />}
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                ))}
+                <p className="text-sm text-gray-500 mb-2 italic">"Tudo começa com o formato da sua vontade. Escolha o recipiente ideal!"</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {SIZES.map(size => (
+                    <button
+                      key={size.id}
+                      onClick={() => setCurrentItem({ ...currentItem, size: size.name })}
+                      className={`p-4 rounded-xl border-2 text-left transition-all active:scale-95 ${
+                        currentItem.size === size.name 
+                          ? 'border-[#f26522] bg-[#fff0e6] text-[#f26522]' 
+                          : 'border-gray-200 bg-white hover:border-[#f26522]/50'
+                      }`}
+                    >
+                      <div className="flex justify-between items-center">
+                        <span className="font-bold">{size.name}</span>
+                        {currentItem.size === size.name && <Check size={20} />}
+                      </div>
+                    </button>
+                  ))}
+                </div>
               </div>
             )}
 
@@ -399,7 +392,7 @@ export function AcaiBuilder() {
                     </div>
                     
                     <div className="space-y-2 text-sm text-gray-700">
-                      <p><span className="font-bold">Tamanho:</span> {item.size}</p>
+                      <p><span className="font-bold">Formato:</span> {item.size}</p>
                       <p><span className="font-bold">Açaí:</span> {item.acais.join(', ')}</p>
                       <p><span className="font-bold">Gelatos:</span> {item.gelatos.length > 0 ? item.gelatos.join(', ') : 'Nenhum'}</p>
                       <p><span className="font-bold">Frutas:</span> {item.fruits.length > 0 ? item.fruits.join(', ') : 'Nenhuma'}</p>

@@ -65,16 +65,16 @@ export function InstagramFeed() {
       </div>
 
       <div className="relative w-full flex overflow-hidden">
-        <div className="flex w-[200%] animate-marquee">
+        <div className="flex w-max animate-marquee">
           {/* First set of images */}
-          <div className="flex w-1/2 justify-around">
+          <div className="flex gap-4 px-2">
             {INSTAGRAM_POSTS.map((post) => (
               <a
                 key={`first-${post.id}`}
                 href={post.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative w-64 h-64 mx-2 overflow-hidden rounded-2xl shadow-sm hover:shadow-md transition-shadow flex-shrink-0"
+                className="group relative w-64 h-64 overflow-hidden rounded-2xl shadow-sm hover:shadow-md transition-shadow flex-shrink-0"
               >
                 <Image
                   src={post.image}
@@ -90,14 +90,14 @@ export function InstagramFeed() {
             ))}
           </div>
           {/* Second set of images for infinite scroll effect */}
-          <div className="flex w-1/2 justify-around">
+          <div className="flex gap-4 px-2">
             {INSTAGRAM_POSTS.map((post) => (
               <a
                 key={`second-${post.id}`}
                 href={post.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative w-64 h-64 mx-2 overflow-hidden rounded-2xl shadow-sm hover:shadow-md transition-shadow flex-shrink-0"
+                className="group relative w-64 h-64 overflow-hidden rounded-2xl shadow-sm hover:shadow-md transition-shadow flex-shrink-0"
               >
                 <Image
                   src={post.image}
