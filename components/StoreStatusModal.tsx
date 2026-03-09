@@ -27,16 +27,11 @@ export function StoreStatusModal() {
       const minutes = spTime.getMinutes();
       const timeInMinutes = hours * 60 + minutes;
 
-      // Terça (2) a Domingo (0): 16:30 (990) às 22:00 (1320)
-      // Segunda (1): Fechado
-      if (day === 1) {
-        setStoreStatus('fechada');
+      // Segunda (1) a Domingo (0): 16:30 (990) às 22:00 (1320)
+      if (timeInMinutes >= 990 && timeInMinutes < 1320) {
+        setStoreStatus('aberta');
       } else {
-        if (timeInMinutes >= 990 && timeInMinutes < 1320) {
-          setStoreStatus('aberta');
-        } else {
-          setStoreStatus('fechada');
-        }
+        setStoreStatus('fechada');
       }
     };
 
@@ -47,7 +42,7 @@ export function StoreStatusModal() {
 
   const days = [
     { id: 0, name: 'Domingo', hours: '16:30 - 22:00' },
-    { id: 1, name: 'Segunda-feira', hours: 'Fechado' },
+    { id: 1, name: 'Segunda-feira', hours: '16:30 - 22:00' },
     { id: 2, name: 'Terça-feira', hours: '16:30 - 22:00' },
     { id: 3, name: 'Quarta-feira', hours: '16:30 - 22:00' },
     { id: 4, name: 'Quinta-feira', hours: '16:30 - 22:00' },

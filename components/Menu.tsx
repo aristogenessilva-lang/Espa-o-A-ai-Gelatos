@@ -8,7 +8,7 @@ import { motion } from 'motion/react';
 const categories = [
   'TODOS',
   'AÇAÍ TRADICIONAL',
-  'AÇAÍ ZERO',
+  'AÇAÍ FIT',
   'GELATOS',
   'ACOMPANHAMENTOS',
   'BEBIDAS',

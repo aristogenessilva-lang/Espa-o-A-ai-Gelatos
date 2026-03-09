@@ -43,7 +43,7 @@ export function About() {
             <div className="space-y-6 text-lg text-gray-700 font-light leading-relaxed">
               <p>
                 O Espaço Açaí & Gelatos nasceu da paixão por sabores autênticos e
-                momentos de alegria. Acreditamos que uma boa tigela de açaí ou um
+                momentos de alegria. Acreditamos que um bom copo de açaí ou um
                 gelato artesanal tem o poder de transformar o dia, conectar pessoas
                 e inspirar novas ideias.
               </p>

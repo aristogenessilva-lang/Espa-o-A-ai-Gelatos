@@ -6,7 +6,6 @@ import { X, ChevronRight, ChevronLeft, Plus, Trash2, Edit2, ShoppingBag, Check }
 const SIZES = [
   { id: 'marmita', name: 'Marmita' },
   { id: 'copo', name: 'Copo' },
-  { id: 'tigela', name: 'Tigela' },
 ];
 
 const ACAIS = [

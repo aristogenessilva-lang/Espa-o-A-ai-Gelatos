@@ -29,16 +29,11 @@ export function Header() {
       const minutes = spTime.getMinutes();
       const timeInMinutes = hours * 60 + minutes;
 
-      // Terça (2) a Domingo (0): 16:30 (990) às 22:00 (1320)
-      // Segunda (1): Fechado
-      if (day === 1) {
-        setIsOpen(false);
+      // Segunda (1) a Domingo (0): 16:30 (990) às 22:00 (1320)
+      if (timeInMinutes >= 990 && timeInMinutes < 1320) {
+        setIsOpen(true);
       } else {
-        if (timeInMinutes >= 990 && timeInMinutes < 1320) {
-          setIsOpen(true);
-        } else {
-          setIsOpen(false);
-        }
+        setIsOpen(false);
       }
     };
 

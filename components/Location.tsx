@@ -50,8 +50,7 @@ export function Location() {
                     Horário de Funcionamento
                   </h3>
                   <p className="text-[#faf8fb]/80 font-light leading-relaxed">
-                    Terça a Domingo: 16:30 às 22:00<br />
-                    Segunda-feira: Fechado
+                    Segunda a Domingo: 16:30 às 22:00
                   </p>
                 </div>
               </div>
