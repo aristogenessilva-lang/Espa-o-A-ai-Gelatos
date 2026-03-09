@@ -63,7 +63,12 @@ export function AcaiBuilder() {
   const [customerName, setCustomerName] = useState('');
   const [deliveryMethod, setDeliveryMethod] = useState<'Delivery' | 'Retirada no local' | ''>('');
   const [paymentMethod, setPaymentMethod] = useState<'Pix' | 'Cartão de Crédito' | 'Cartão de Débito' | 'Dinheiro' | ''>('');
-  const [deliveryAddress, setDeliveryAddress] = useState('');
+  
+  const [deliveryNeighborhood, setDeliveryNeighborhood] = useState('');
+  const [deliveryStreet, setDeliveryStreet] = useState('');
+  const [deliveryNumber, setDeliveryNumber] = useState('');
+  const [deliveryComplement, setDeliveryComplement] = useState('');
+  const [deliveryReference, setDeliveryReference] = useState('');
 
   useEffect(() => {
     const handleOpen = () => {
@@ -155,30 +160,35 @@ export function AcaiBuilder() {
       return;
     }
 
-    if (deliveryMethod === 'Delivery' && !deliveryAddress.trim()) {
-      alert('Por favor, informe o local de entrega.');
+    if (deliveryMethod === 'Delivery' && (!deliveryNeighborhood.trim() || !deliveryStreet.trim() || !deliveryNumber.trim())) {
+      alert('Por favor, preencha o bairro, rua e número para entrega.');
       return;
     }
 
-    let message = `💜 *Olá! Gostaria de fazer este pedido:*\n\n🍧 *Pedido - Espaço Açaí & Gelatos*\n\n👤 *Nome:* ${customerName}\n\n`;
+    let message = `*Olá! Gostaria de fazer este pedido:*\n\n*Pedido - Espaço Açaí & Gelatos*\n\n*Nome:* ${customerName}\n\n`;
 
     cart.forEach((item, index) => {
-      message += `🟣 *Açaí ${index + 1}*\n`;
-      message += `📦 *Formato:* ${item.size}\n`;
-      message += `🥣 *Açaí:* ${item.acais.join(', ')}\n`;
-      message += `🍦 *Gelatos:* ${item.gelatos.length > 0 ? item.gelatos.join(', ') : 'Nenhum'}\n`;
-      message += `🍓 *Frutas:* ${item.fruits.length > 0 ? item.fruits.join(', ') : 'Nenhuma'}\n`;
-      message += `🍬 *Complementos:* ${item.complements.length > 0 ? item.complements.join(', ') : 'Nenhum'}\n`;
-      message += `🍯 *Caldas:* ${item.syrups.length > 0 ? item.syrups.join(', ') : 'Nenhuma'}\n\n`;
+      message += `*Açaí ${index + 1}*\n`;
+      message += `*Formato:* ${item.size}\n`;
+      message += `*Açaí:* ${item.acais.join(', ')}\n`;
+      message += `*Gelatos:* ${item.gelatos.length > 0 ? item.gelatos.join(', ') : 'Nenhum'}\n`;
+      message += `*Frutas:* ${item.fruits.length > 0 ? item.fruits.join(', ') : 'Nenhuma'}\n`;
+      message += `*Complementos:* ${item.complements.length > 0 ? item.complements.join(', ') : 'Nenhum'}\n`;
+      message += `*Caldas:* ${item.syrups.length > 0 ? item.syrups.join(', ') : 'Nenhuma'}\n\n`;
     });
 
-    message += `🛵 *Forma de entrega:* ${deliveryMethod}\n`;
+    message += `*Forma de entrega:* ${deliveryMethod}\n`;
     if (deliveryMethod === 'Delivery') {
-      message += `📍 *Local de entrega:* ${deliveryAddress}\n`;
+      message += `*Endereço de entrega:*\n`;
+      message += `Bairro: ${deliveryNeighborhood}\n`;
+      message += `Rua: ${deliveryStreet}\n`;
+      message += `Número: ${deliveryNumber}\n`;
+      if (deliveryComplement) message += `Complemento: ${deliveryComplement}\n`;
+      if (deliveryReference) message += `Ponto de Referência: ${deliveryReference}\n`;
     }
-    message += `💳 *Forma de pagamento:* ${paymentMethod}\n\n`;
-    message += `💰 *Preço base:*\n⚖️ 1kg = R$ 70,00\n\n`;
-    message += `⏳ _Aguardando pesagem para valor final._`;
+    message += `\n*Forma de pagamento:* ${paymentMethod}\n\n`;
+    message += `*Preço base:*\n1kg = R$ 70,00\n\n`;
+    message += `_Aguardando pesagem para valor final._`;
 
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/5598985080705?text=${encodedMessage}`, '_blank');
@@ -188,7 +198,11 @@ export function AcaiBuilder() {
     setCustomerName('');
     setDeliveryMethod('');
     setPaymentMethod('');
-    setDeliveryAddress('');
+    setDeliveryNeighborhood('');
+    setDeliveryStreet('');
+    setDeliveryNumber('');
+    setDeliveryComplement('');
+    setDeliveryReference('');
     setIsOpen(false);
   };
 
@@ -465,15 +479,64 @@ export function AcaiBuilder() {
               </div>
 
               {deliveryMethod === 'Delivery' && (
-                <div className="animate-in fade-in slide-in-from-top-2">
-                  <label className="block font-bold text-[#6b1471] mb-2">Local de Entrega</label>
-                  <textarea
-                    value={deliveryAddress}
-                    onChange={(e) => setDeliveryAddress(e.target.value)}
-                    placeholder="Rua, número, bairro, ponto de referência..."
-                    rows={3}
-                    className="w-full p-4 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#f26522] focus:border-transparent outline-none resize-none"
-                  />
+                <div className="animate-in fade-in slide-in-from-top-2 space-y-4">
+                  <h3 className="font-bold text-[#6b1471] border-b pb-2">Endereço de Entrega</h3>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Bairro *</label>
+                    <input
+                      type="text"
+                      value={deliveryNeighborhood}
+                      onChange={(e) => setDeliveryNeighborhood(e.target.value)}
+                      placeholder="Ex: Centro"
+                      className="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#f26522] focus:border-transparent outline-none"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-3">
+                    <div className="col-span-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Rua *</label>
+                      <input
+                        type="text"
+                        value={deliveryStreet}
+                        onChange={(e) => setDeliveryStreet(e.target.value)}
+                        placeholder="Ex: Rua das Flores"
+                        className="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#f26522] focus:border-transparent outline-none"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Número *</label>
+                      <input
+                        type="text"
+                        value={deliveryNumber}
+                        onChange={(e) => setDeliveryNumber(e.target.value)}
+                        placeholder="Ex: 123"
+                        className="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#f26522] focus:border-transparent outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Complemento (Opcional)</label>
+                    <input
+                      type="text"
+                      value={deliveryComplement}
+                      onChange={(e) => setDeliveryComplement(e.target.value)}
+                      placeholder="Ex: Apto 42, Bloco B"
+                      className="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#f26522] focus:border-transparent outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Ponto de Referência (Opcional)</label>
+                    <input
+                      type="text"
+                      value={deliveryReference}
+                      onChange={(e) => setDeliveryReference(e.target.value)}
+                      placeholder="Ex: Próximo ao mercado"
+                      className="w-full p-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#f26522] focus:border-transparent outline-none"
+                    />
+                  </div>
                 </div>
               )}
 
@@ -554,7 +617,7 @@ export function AcaiBuilder() {
               </button>
               <button
                 onClick={sendOrder}
-                disabled={!customerName.trim() || !deliveryMethod || !paymentMethod || (deliveryMethod === 'Delivery' && !deliveryAddress.trim())}
+                disabled={!customerName.trim() || !deliveryMethod || !paymentMethod || (deliveryMethod === 'Delivery' && (!deliveryNeighborhood.trim() || !deliveryStreet.trim() || !deliveryNumber.trim()))}
                 className="flex-1 bg-[#00a859] disabled:bg-gray-300 disabled:cursor-not-allowed text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#008f4c] active:scale-95 transition-all"
               >
                 Enviar Pedido pelo WhatsApp
