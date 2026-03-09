@@ -7,7 +7,6 @@ const SIZES = [
   { id: 'marmita', name: 'Marmita' },
   { id: 'copo', name: 'Copo' },
   { id: 'tigela', name: 'Tigela' },
-  { id: 'barca', name: 'Barca' },
 ];
 
 const ACAIS = [
@@ -161,25 +160,25 @@ export function AcaiBuilder() {
       return;
     }
 
-    let message = `Olá! Gostaria de fazer este pedido:\n\n*Pedido - Espaço Açaí & Gelatos*\n\n*Nome:* ${customerName}\n\n`;
+    let message = `💜 *Olá! Gostaria de fazer este pedido:*\n\n🍧 *Pedido - Espaço Açaí & Gelatos*\n\n👤 *Nome:* ${customerName}\n\n`;
 
     cart.forEach((item, index) => {
-      message += `*Açaí ${index + 1}*\n`;
-      message += `Formato: ${item.size}\n`;
-      message += `Açaí: ${item.acais.join(', ')}\n`;
-      message += `Gelatos: ${item.gelatos.length > 0 ? item.gelatos.join(', ') : 'Nenhum'}\n`;
-      message += `Frutas: ${item.fruits.length > 0 ? item.fruits.join(', ') : 'Nenhuma'}\n`;
-      message += `Complementos: ${item.complements.length > 0 ? item.complements.join(', ') : 'Nenhum'}\n`;
-      message += `Caldas: ${item.syrups.length > 0 ? item.syrups.join(', ') : 'Nenhuma'}\n\n`;
+      message += `🟣 *Açaí ${index + 1}*\n`;
+      message += `📦 *Formato:* ${item.size}\n`;
+      message += `🥣 *Açaí:* ${item.acais.join(', ')}\n`;
+      message += `🍦 *Gelatos:* ${item.gelatos.length > 0 ? item.gelatos.join(', ') : 'Nenhum'}\n`;
+      message += `🍓 *Frutas:* ${item.fruits.length > 0 ? item.fruits.join(', ') : 'Nenhuma'}\n`;
+      message += `🍬 *Complementos:* ${item.complements.length > 0 ? item.complements.join(', ') : 'Nenhum'}\n`;
+      message += `🍯 *Caldas:* ${item.syrups.length > 0 ? item.syrups.join(', ') : 'Nenhuma'}\n\n`;
     });
 
-    message += `*Forma de entrega:* ${deliveryMethod}\n`;
+    message += `🛵 *Forma de entrega:* ${deliveryMethod}\n`;
     if (deliveryMethod === 'Delivery') {
-      message += `*Local de entrega:* ${deliveryAddress}\n`;
+      message += `📍 *Local de entrega:* ${deliveryAddress}\n`;
     }
-    message += `*Forma de pagamento:* ${paymentMethod}\n\n`;
-    message += `*Preço base:*\n1kg = R$ 70,00\n\n`;
-    message += `_Aguardando pesagem para valor final._`;
+    message += `💳 *Forma de pagamento:* ${paymentMethod}\n\n`;
+    message += `💰 *Preço base:*\n⚖️ 1kg = R$ 70,00\n\n`;
+    message += `⏳ _Aguardando pesagem para valor final._`;
 
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/5598985080705?text=${encodedMessage}`, '_blank');
