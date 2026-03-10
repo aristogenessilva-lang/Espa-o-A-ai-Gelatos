@@ -4,8 +4,12 @@ import { useState, useEffect } from 'react';
 import { X, ChevronRight, ChevronLeft, Plus, Trash2, Edit2, ShoppingBag, Check } from 'lucide-react';
 
 const SIZES = [
-  { id: 'marmita', name: 'Marmita' },
-  { id: 'copo', name: 'Copo' },
+  { id: 'marmita-300', name: 'Marmita 300ml' },
+  { id: 'marmita-500', name: 'Marmita 500ml' },
+  { id: 'marmita-700', name: 'Marmita 700ml' },
+  { id: 'copo-300', name: 'Copo 300ml' },
+  { id: 'copo-400', name: 'Copo 400ml' },
+  { id: 'copo-500', name: 'Copo 500ml' },
 ];
 
 const DELIVERY_REGIONS = [
@@ -46,6 +50,7 @@ type AcaiItem = {
   fruits: string[];
   complements: string[];
   syrups: string[];
+  observation: string;
 };
 
 const STEPS = [
@@ -65,7 +70,6 @@ export function AcaiBuilder() {
   const [cart, setCart] = useState<AcaiItem[]>([]);
   const [currentItem, setCurrentItem] = useState<AcaiItem | null>(null);
   
-  const [customerName, setCustomerName] = useState('');
   const [deliveryMethod, setDeliveryMethod] = useState<'Delivery' | 'Retirada no local' | ''>('');
   const [paymentMethod, setPaymentMethod] = useState<'Pix' | 'Cartão de Crédito' | 'Cartão de Débito' | 'Dinheiro' | ''>('');
   
@@ -98,6 +102,7 @@ export function AcaiBuilder() {
       fruits: [],
       complements: [],
       syrups: [],
+      observation: '',
     });
     setCurrentStep(1);
     setView('builder');
@@ -161,8 +166,8 @@ export function AcaiBuilder() {
   };
 
   const sendOrder = () => {
-    if (!customerName.trim() || !deliveryMethod || !paymentMethod) {
-      alert('Por favor, preencha seu nome, forma de entrega e forma de pagamento.');
+    if (!deliveryMethod || !paymentMethod) {
+      alert('Por favor, preencha a forma de entrega e forma de pagamento.');
       return;
     }
 
@@ -171,7 +176,7 @@ export function AcaiBuilder() {
       return;
     }
 
-    let message = `*Olá! Gostaria de fazer este pedido:*\n\n*Pedido - Espaço Açaí & Gelatos*\n\n*Nome:* ${customerName}\n\n`;
+    let message = `*Olá! Gostaria de fazer este pedido:*\n\n*Pedido - Espaço Açaí & Gelatos*\n\n`;
 
     cart.forEach((item, index) => {
       message += `*Açaí ${index + 1}*\n`;
@@ -180,7 +185,11 @@ export function AcaiBuilder() {
       message += `*Gelatos:* ${item.gelatos.length > 0 ? item.gelatos.join(', ') : 'Nenhum'}\n`;
       message += `*Frutas:* ${item.fruits.length > 0 ? item.fruits.join(', ') : 'Nenhuma'}\n`;
       message += `*Complementos:* ${item.complements.length > 0 ? item.complements.join(', ') : 'Nenhum'}\n`;
-      message += `*Caldas:* ${item.syrups.length > 0 ? item.syrups.join(', ') : 'Nenhuma'}\n\n`;
+      message += `*Caldas:* ${item.syrups.length > 0 ? item.syrups.join(', ') : 'Nenhuma'}\n`;
+      if (item.observation) {
+        message += `*Observação:* ${item.observation}\n`;
+      }
+      message += `\n`;
     });
 
     message += `*Forma de entrega:* ${deliveryMethod}\n`;
@@ -203,7 +212,6 @@ export function AcaiBuilder() {
     
     // Reset after sending
     setCart([]);
-    setCustomerName('');
     setDeliveryMethod('');
     setPaymentMethod('');
     setDeliveryNeighborhood('');
@@ -373,24 +381,36 @@ export function AcaiBuilder() {
               </div>
             )}
 
-            {/* Step 6: Syrups */}
+            {/* Step 6: Syrups & Observation */}
             {currentStep === 6 && (
-              <div className="animate-in fade-in slide-in-from-right-4">
-                <p className="text-sm text-gray-500 mb-4 italic">"O toque final que faz toda a diferença. Qual calda vai coroar o seu açaí hoje?"</p>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  {SYRUPS.map(syrup => (
-                    <button
-                      key={syrup}
-                      onClick={() => toggleSelection('syrups', syrup)}
-                      className={`p-4 rounded-xl border-2 text-center transition-all active:scale-95 ${
-                        currentItem.syrups.includes(syrup)
-                          ? 'border-[#f26522] bg-[#fff0e6] text-[#f26522]' 
-                          : 'border-gray-200 bg-white hover:border-[#f26522]/50'
-                      }`}
-                    >
-                      <span className="font-bold">{syrup}</span>
-                    </button>
-                  ))}
+              <div className="animate-in fade-in slide-in-from-right-4 space-y-8">
+                <div>
+                  <p className="text-sm text-gray-500 mb-4 italic">"O toque final que faz toda a diferença. Qual calda vai coroar o seu açaí hoje?"</p>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    {SYRUPS.map(syrup => (
+                      <button
+                        key={syrup}
+                        onClick={() => toggleSelection('syrups', syrup)}
+                        className={`p-4 rounded-xl border-2 text-center transition-all active:scale-95 ${
+                          currentItem.syrups.includes(syrup)
+                            ? 'border-[#f26522] bg-[#fff0e6] text-[#f26522]' 
+                            : 'border-gray-200 bg-white hover:border-[#f26522]/50'
+                        }`}
+                      >
+                        <span className="font-bold">{syrup}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="pt-6 border-t border-gray-200">
+                  <label className="block font-bold text-[#6b1471] mb-2">Observações (Opcional)</label>
+                  <textarea
+                    value={currentItem.observation}
+                    onChange={(e) => setCurrentItem({ ...currentItem, observation: e.target.value })}
+                    placeholder="Ex: Sem leite em pó, com extra de morango..."
+                    className="w-full p-4 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#f26522] focus:border-transparent outline-none resize-none h-24"
+                  />
                 </div>
               </div>
             )}
@@ -433,6 +453,9 @@ export function AcaiBuilder() {
                       <p><span className="font-bold">Frutas:</span> {item.fruits.length > 0 ? item.fruits.join(', ') : 'Nenhuma'}</p>
                       <p><span className="font-bold">Complementos:</span> {item.complements.length > 0 ? item.complements.join(', ') : 'Nenhum'}</p>
                       <p><span className="font-bold">Caldas:</span> {item.syrups.length > 0 ? item.syrups.join(', ') : 'Nenhuma'}</p>
+                      {item.observation && (
+                        <p><span className="font-bold">Observação:</span> {item.observation}</p>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -457,17 +480,6 @@ export function AcaiBuilder() {
         {view === 'checkout' && (
           <div className="max-w-3xl mx-auto p-4 pb-32 animate-in fade-in">
             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 space-y-6">
-              <div>
-                <label className="block font-bold text-[#6b1471] mb-2">Seu Nome</label>
-                <input
-                  type="text"
-                  value={customerName}
-                  onChange={(e) => setCustomerName(e.target.value)}
-                  placeholder="Como devemos te chamar?"
-                  className="w-full p-4 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#f26522] focus:border-transparent outline-none"
-                />
-              </div>
-
               <div>
                 <label className="block font-bold text-[#6b1471] mb-3">Forma de Entrega</label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -646,7 +658,7 @@ export function AcaiBuilder() {
               </button>
               <button
                 onClick={sendOrder}
-                disabled={!customerName.trim() || !deliveryMethod || !paymentMethod || (deliveryMethod === 'Delivery' && (!deliveryRegion || !deliveryNeighborhood.trim() || !deliveryStreet.trim() || !deliveryNumber.trim()))}
+                disabled={!deliveryMethod || !paymentMethod || (deliveryMethod === 'Delivery' && (!deliveryRegion || !deliveryNeighborhood.trim() || !deliveryStreet.trim() || !deliveryNumber.trim()))}
                 className="flex-1 bg-[#00a859] disabled:bg-gray-300 disabled:cursor-not-allowed text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#008f4c] active:scale-95 transition-all"
               >
                 Enviar Pedido pelo WhatsApp
