@@ -82,9 +82,14 @@ export function Header() {
             INSTAGRAM
           </a>
           {/* Status Indicator */}
-          <div className={`flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold tracking-wider border ${isOpen ? 'bg-green-100 text-green-800 border-green-200' : 'bg-red-100 text-red-800 border-red-200'}`}>
-            <Clock size={14} />
-            {isOpen ? 'ABERTO' : 'FECHADO'}
+          <div className="flex items-center gap-3">
+            <div className={`flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold tracking-wider border ${isOpen ? 'bg-green-100 text-green-800 border-green-200' : 'bg-red-100 text-red-800 border-red-200'}`}>
+              <Clock size={14} />
+              {isOpen ? 'ABERTO' : 'FECHADO'}
+            </div>
+            <span className="text-xs font-medium text-[#6b1471] hidden lg:block">
+              Seg - Dom: 16:30 às 22:00
+            </span>
           </div>
         </nav>
 
