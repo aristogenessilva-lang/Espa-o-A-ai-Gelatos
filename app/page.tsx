@@ -11,7 +11,7 @@ import { AcaiBuilder } from '@/components/AcaiBuilder';
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col relative">
+    <main className="min-h-screen flex flex-col relative overflow-x-hidden">
       <StoreStatusModal />
       <AcaiBuilder />
       <Header />

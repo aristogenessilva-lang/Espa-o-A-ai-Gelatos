@@ -12,7 +12,7 @@ export function Logo() {
           referrerPolicy="no-referrer"
         />
       </div>
-      <span className="font-serif text-[14px] sm:text-xl md:text-2xl font-bold text-[#6b1471] leading-tight truncate">
+      <span className="font-serif text-[12px] sm:text-xl md:text-2xl font-bold text-[#6b1471] leading-tight truncate min-w-0">
         Espaço <span className="text-[#00a859] italic font-medium">Açaí & </span>
         <span className="text-[#f26522] italic font-medium">Gelatos</span>
       </span>

@@ -27,7 +27,7 @@ export function Location() {
 
             <div className="space-y-10">
               {/* Address */}
-              <div className="flex items-start gap-6 group">
+              <div className="flex items-start gap-4 sm:gap-6 group">
                 <div className="w-12 h-12 rounded-full bg-[#faf8fb]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#f26522] transition-colors duration-300">
                   <MapPin className="text-[#f26522] group-hover:text-white transition-colors duration-300" size={24} />
                 </div>
@@ -41,7 +41,7 @@ export function Location() {
               </div>
 
               {/* Hours */}
-              <div className="flex items-start gap-6 group">
+              <div className="flex items-start gap-4 sm:gap-6 group">
                 <div className="w-12 h-12 rounded-full bg-[#faf8fb]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#f26522] transition-colors duration-300">
                   <Clock className="text-[#f26522] group-hover:text-white transition-colors duration-300" size={24} />
                 </div>
@@ -56,7 +56,7 @@ export function Location() {
               </div>
 
               {/* Contact */}
-              <div className="flex items-start gap-6 group">
+              <div className="flex items-start gap-4 sm:gap-6 group">
                 <div className="w-12 h-12 rounded-full bg-[#faf8fb]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#f26522] transition-colors duration-300">
                   <Phone className="text-[#f26522] group-hover:text-white transition-colors duration-300" size={24} />
                 </div>

@@ -57,7 +57,7 @@ export function Header() {
     >
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 flex justify-between items-center gap-2">
         {/* Logo */}
-        <Link href="/" className="flex items-center hover:opacity-90 transition-opacity min-w-0">
+        <Link href="/" className="flex items-center hover:opacity-90 transition-opacity min-w-0 shrink">
           <Logo />
         </Link>
 

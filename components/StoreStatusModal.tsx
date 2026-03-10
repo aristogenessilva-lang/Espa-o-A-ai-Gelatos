@@ -52,7 +52,7 @@ export function StoreStatusModal() {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
-      <div className="bg-white rounded-2xl w-full max-w-sm p-6 relative flex flex-col items-center text-center shadow-2xl animate-in fade-in zoom-in duration-300">
+      <div className="bg-white rounded-2xl w-full max-w-sm p-4 sm:p-6 relative flex flex-col items-center text-center shadow-2xl animate-in fade-in zoom-in duration-300">
         <button 
           onClick={() => setIsOpen(false)} 
           className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
@@ -71,7 +71,7 @@ export function StoreStatusModal() {
 
         <h3 className="text-gray-700 font-bold text-lg mb-4">Horário de Funcionamento</h3>
 
-        <div className="w-full text-sm mb-6">
+        <div className="w-full text-xs sm:text-sm mb-6">
           {days.map((d) => {
             const isToday = d.id === currentDay;
             return (

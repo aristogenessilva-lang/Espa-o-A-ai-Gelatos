@@ -176,18 +176,18 @@ export function AcaiBuilder() {
       return;
     }
 
-    let message = `*Olá! Gostaria de fazer este pedido:*\n\n*Pedido - Espaço Açaí & Gelatos*\n\n`;
+    let message = `\u{1F4CB} *Resumo do seu pedido*\n\n`;
 
     cart.forEach((item, index) => {
-      message += `*Açaí ${index + 1}*\n`;
-      message += `*Formato:* ${item.size}\n`;
-      message += `*Açaí:* ${item.acais.join(', ')}\n`;
-      message += `*Gelatos:* ${item.gelatos.length > 0 ? item.gelatos.join(', ') : 'Nenhum'}\n`;
-      message += `*Frutas:* ${item.fruits.length > 0 ? item.fruits.join(', ') : 'Nenhuma'}\n`;
-      message += `*Complementos:* ${item.complements.length > 0 ? item.complements.join(', ') : 'Nenhum'}\n`;
-      message += `*Caldas:* ${item.syrups.length > 0 ? item.syrups.join(', ') : 'Nenhuma'}\n`;
+      message += `*Açaí ${index + 1}* \u{1F367}\n`;
+      message += `\u{1F4E6} Tamanho: *${item.size}*\n`;
+      message += `\u{1F368} Açaí: *${item.acais.length > 0 ? item.acais.join(', ') : 'Nenhum'}*\n`;
+      message += `\u{1F366} Gelatos: *${item.gelatos.length > 0 ? item.gelatos.join(', ') : 'Nenhum'}*\n`;
+      message += `\u{1F353} Frutas: *${item.fruits.length > 0 ? item.fruits.join(', ') : 'Nenhuma'}*\n`;
+      message += `\u{1F36B} Complementos: *${item.complements.length > 0 ? item.complements.join(', ') : 'Nenhum'}*\n`;
+      message += `\u{1F36F} Caldas: *${item.syrups.length > 0 ? item.syrups.join(', ') : 'Nenhuma'}*\n`;
       if (item.observation) {
-        message += `*Observação:* ${item.observation}\n`;
+        message += `\u{1F4DD} Observação: *${item.observation}*\n`;
       }
       message += `\n`;
     });
@@ -204,11 +204,13 @@ export function AcaiBuilder() {
       if (deliveryReference) message += `Ponto de Referência: ${deliveryReference}\n`;
     }
     message += `\n*Forma de pagamento:* ${paymentMethod}\n\n`;
-    message += `*Preço base:*\n1kg = R$ 70,00\n\n`;
-    message += `_Aguardando pesagem para valor final._`;
+    message += `_Aguardando pesagem para valor final._\n\n`;
+    message += `O que deseja fazer?\n`;
+    message += `*\u{276F} 1-* \u{2705} Confirmar pedido\n`;
+    message += `*\u{276F} 2-* \u{1F4DD} Refazer do início\n`;
 
     const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/5598985080705?text=${encodedMessage}`, '_blank');
+    window.open(`https://api.whatsapp.com/send?phone=5598985080705&text=${encodedMessage}`, '_blank');
     
     // Reset after sending
     setCart([]);
