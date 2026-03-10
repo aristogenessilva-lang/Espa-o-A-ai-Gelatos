@@ -204,10 +204,7 @@ export function AcaiBuilder() {
       if (deliveryReference) message += `Ponto de Referência: ${deliveryReference}\n`;
     }
     message += `\n*Forma de pagamento:* ${paymentMethod}\n\n`;
-    message += `_Aguardando pesagem para valor final._\n\n`;
-    message += `O que deseja fazer?\n`;
-    message += `*\u{276F} 1-* \u{2705} Confirmar pedido\n`;
-    message += `*\u{276F} 2-* \u{1F4DD} Refazer do início\n`;
+    message += `_Aguardando pesagem para valor final._\n`;
 
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://api.whatsapp.com/send?phone=5598985080705&text=${encodedMessage}`, '_blank');
