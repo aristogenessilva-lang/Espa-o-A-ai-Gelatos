@@ -8,6 +8,12 @@ const SIZES = [
   { id: 'copo', name: 'Copo' },
 ];
 
+const DELIVERY_REGIONS = [
+  { id: 'centro', name: 'Centro', price: 'R$ 5,00' },
+  { id: 'arredores', name: 'Arredores', price: 'R$ 7,00' },
+  { id: 'ze-gomes', name: 'Zé Gomes', price: 'R$ 10,00' },
+];
+
 const ACAIS = [
   'Açaí Master', 'Açaí Fit', 'Creme de Maracujá', 'Creme de Morango', 'Creme de Cupuaçu', 'Creme de Bacuri'
 ];
@@ -68,6 +74,7 @@ export function AcaiBuilder() {
   const [deliveryNumber, setDeliveryNumber] = useState('');
   const [deliveryComplement, setDeliveryComplement] = useState('');
   const [deliveryReference, setDeliveryReference] = useState('');
+  const [deliveryRegion, setDeliveryRegion] = useState('');
 
   useEffect(() => {
     const handleOpen = () => {
@@ -159,8 +166,8 @@ export function AcaiBuilder() {
       return;
     }
 
-    if (deliveryMethod === 'Delivery' && (!deliveryNeighborhood.trim() || !deliveryStreet.trim() || !deliveryNumber.trim())) {
-      alert('Por favor, preencha o bairro, rua e número para entrega.');
+    if (deliveryMethod === 'Delivery' && (!deliveryRegion || !deliveryNeighborhood.trim() || !deliveryStreet.trim() || !deliveryNumber.trim())) {
+      alert('Por favor, preencha a região, bairro, rua e número para entrega.');
       return;
     }
 
@@ -178,6 +185,8 @@ export function AcaiBuilder() {
 
     message += `*Forma de entrega:* ${deliveryMethod}\n`;
     if (deliveryMethod === 'Delivery') {
+      const region = DELIVERY_REGIONS.find(r => r.id === deliveryRegion);
+      message += `*Região:* ${region?.name} (Taxa: ${region?.price})\n`;
       message += `*Endereço de entrega:*\n`;
       message += `Bairro: ${deliveryNeighborhood}\n`;
       message += `Rua: ${deliveryStreet}\n`;
@@ -202,6 +211,7 @@ export function AcaiBuilder() {
     setDeliveryNumber('');
     setDeliveryComplement('');
     setDeliveryReference('');
+    setDeliveryRegion('');
     setIsOpen(false);
   };
 
@@ -482,6 +492,26 @@ export function AcaiBuilder() {
                   <h3 className="font-bold text-[#6b1471] border-b pb-2">Endereço de Entrega</h3>
                   
                   <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Me informe qual região para calcular a taxa: *</label>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+                      {DELIVERY_REGIONS.map(region => (
+                        <button
+                          key={region.id}
+                          onClick={() => setDeliveryRegion(region.id)}
+                          className={`p-3 rounded-xl border-2 text-center transition-all active:scale-95 ${
+                            deliveryRegion === region.id
+                              ? 'border-[#f26522] bg-[#fff0e6] text-[#f26522]' 
+                              : 'border-gray-200 bg-white hover:border-[#f26522]/50 text-gray-600'
+                          }`}
+                        >
+                          <div className="font-bold text-sm">{region.name}</div>
+                          <div className="text-xs mt-1">{region.price}</div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Bairro *</label>
                     <input
                       type="text"
@@ -616,7 +646,7 @@ export function AcaiBuilder() {
               </button>
               <button
                 onClick={sendOrder}
-                disabled={!customerName.trim() || !deliveryMethod || !paymentMethod || (deliveryMethod === 'Delivery' && (!deliveryNeighborhood.trim() || !deliveryStreet.trim() || !deliveryNumber.trim()))}
+                disabled={!customerName.trim() || !deliveryMethod || !paymentMethod || (deliveryMethod === 'Delivery' && (!deliveryRegion || !deliveryNeighborhood.trim() || !deliveryStreet.trim() || !deliveryNumber.trim()))}
                 className="flex-1 bg-[#00a859] disabled:bg-gray-300 disabled:cursor-not-allowed text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#008f4c] active:scale-95 transition-all"
               >
                 Enviar Pedido pelo WhatsApp
