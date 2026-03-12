@@ -45,25 +45,11 @@ const menuItems = [
     category: 'GELATOS',
   },
   {
-    id: 6,
-    name: 'Adicional de Leite Condensado',
-    price: '3,00',
-    description: 'Porção extra de leite condensado.',
-    category: 'ACOMPANHAMENTOS',
-  },
-  {
     id: 7,
     name: 'Água Mineral',
     price: '4,00',
     description: 'Água mineral sem gás 500ml.',
     category: 'BEBIDAS',
-  },
-  {
-    id: 8,
-    name: 'Combo Casal',
-    price: '35,00',
-    description: '2 copos de açaí + 2 águas minerais.',
-    category: 'COMBOS',
   },
 ];
 
